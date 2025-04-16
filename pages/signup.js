@@ -13,8 +13,9 @@ export default function LoginPage() {
         display="flex"
         justifyContent="center"
         alignItems="flex-start"
-        mt="16"
+        pt="16"
         minHeight="100vh"
+        backgroundImage="url('https://doodleipsum.com/1600x900/flat?bg=2563eb')"
       >
         <SignUp />
       </Box>

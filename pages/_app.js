@@ -5,6 +5,7 @@ import { system } from "@/components/ui/theme";
 import Layout from "@/components/layout";
 import { isLoggedIn } from "@/utils/auth";
 import { PagesTopLoader } from "nextjs-toploader/pages";
+import { Toaster } from "@/components/ui/toaster";
 
 // import { ThemeProvider } from "next-themes";
 // import "@/styles/globals.css";
@@ -31,6 +32,7 @@ export default function App({ Component, pageProps }) {
   const Page = (
     <>
       <PagesTopLoader color="red" />
+      <Toaster />
       <Component {...pageProps} />
     </>
   );

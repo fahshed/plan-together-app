@@ -1,5 +1,4 @@
-"use client";
-
+import authApi from "@/api/auth";
 import {
   Button,
   Field,
@@ -10,9 +9,12 @@ import {
   Text,
   Link,
 } from "@chakra-ui/react";
+import { useRouter } from "next/router";
 import { useForm } from "react-hook-form";
+import { toaster } from "@/components/ui/toaster";
 
 const SignUp = () => {
+  const router = useRouter();
   const {
     register,
     handleSubmit,
@@ -21,23 +23,32 @@ const SignUp = () => {
 
   const onSubmit = async (data) => {
     try {
-      const res = await fetch("http://localhost:3001/signup", {
-        method: "POST",
-        headers: { "Content-Type": "application/json" },
-        body: JSON.stringify(data),
-      });
-
-      const responseData = await res.json();
-      if (!res.ok) throw new Error(responseData.error || "Signup failed");
-
-      alert(`Signup successful. Welcome, ${responseData.user.firstName}!`);
+      const res = await authApi.post("/signup", data);
+      const { token, user } = res.data;
+      localStorage.setItem("token", token);
+      localStorage.setItem("user", JSON.stringify(user));
+      router.push("/");
     } catch (err) {
-      alert(`Error: ${err.message}`);
+      console.log(err);
+      const errorCode = err.response?.status;
+      const errorMessage =
+        err.response?.data?.error || "Signup failed, please try again";
+      toaster.create({
+        title: `Error: ${errorCode} ${errorMessage}`,
+        type: "error",
+      });
     }
   };
 
   return (
-    <Box width="400px" p="6" borderWidth="1px" borderRadius="lg" boxShadow="lg">
+    <Box
+      width="400px"
+      p="6"
+      borderWidth="1px"
+      borderRadius="lg"
+      boxShadow="lg"
+      bg="white"
+    >
       <Heading as="h1" size="lg" textAlign="center" mb="6">
         Sign Up
       </Heading>
