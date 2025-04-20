@@ -15,6 +15,7 @@ import Head from "next/head";
 import NextLink from "next/link";
 import { useRouter } from "next/router";
 import { getUserFromLocalStorage } from "@/utils/auth";
+import { ColorModeButton } from "@/components/ui/color-mode";
 
 export default function Layout({ children }) {
   const router = useRouter();
@@ -23,7 +24,6 @@ export default function Layout({ children }) {
 
   useEffect(() => {
     const userData = getUserFromLocalStorage();
-    console.log(userData);
     if (userData) {
       setUser(userData);
     }
@@ -57,13 +57,16 @@ export default function Layout({ children }) {
         <title>PlanTogether</title>
         <meta name="viewport" content="width=device-width, initial-scale=1" />
       </Head>
-      <Box minH="100vh" bg="#fdf0d5">
+      {/* "#fdf0d5" */}
+      {/* {"#FFF9E5"} */}
+      {/* FFF9EC */}
+      <Box minH="100vh">
         <Flex
           as="nav"
           align="center"
           justify="space-between"
           wrap="wrap"
-          padding="1.5rem"
+          padding="6"
           bg="blue.800"
           color="white"
         >
@@ -74,18 +77,22 @@ export default function Layout({ children }) {
           <Spacer />
 
           <HStack gap="8">
+            {/* <ColorModeButton /> */}
             <Link as={NextLink} href="/" color="white">
               Home
             </Link>
             <Link as={NextLink} href="/trips" color="white">
               Trips
             </Link>
+            <Link as={NextLink} href="/transactions" color="white">
+              Transaction
+            </Link>
             <Menu.Root>
               <Menu.Trigger asChild>
                 <div>
                   <Avatar.Root bg="white">
                     <Avatar.Image
-                      src={`https://avatar.iran.liara.run/public`}
+                      src={`https://avatar.iran.liara.run/public?username=${user.id}`}
                     />
                   </Avatar.Root>
                 </div>
@@ -109,7 +116,7 @@ export default function Layout({ children }) {
           </HStack>
         </Flex>
 
-        <Box p={6}>{children}</Box>
+        <Box p="12">{children}</Box>
       </Box>
     </>
   );

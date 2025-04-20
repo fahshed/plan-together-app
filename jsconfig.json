@@ -3,7 +3,8 @@
     "target": "ESNext",
     "module": "ESNext",
     "moduleResolution": "Bundler",
-    "skipLibCheck": true,
+    "skipLibCheck": false,
+    "baseUrl": ".",
     "paths": {
       "@/*": ["./*"]
     }

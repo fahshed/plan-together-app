@@ -12,6 +12,7 @@ import {
 import { useRouter } from "next/router";
 import { useForm } from "react-hook-form";
 import { toaster } from "@/components/ui/toaster";
+import { useState } from "react";
 
 const Login = () => {
   const router = useRouter();
@@ -20,8 +21,10 @@ const Login = () => {
     handleSubmit,
     formState: { errors },
   } = useForm();
+  const [isSubmitting, setIsSubmitting] = useState(false);
 
   const onSubmit = async (data) => {
+    setIsSubmitting(true);
     try {
       const res = await authApi.post("/login", data);
       const { token, user } = res.data;
@@ -32,11 +35,13 @@ const Login = () => {
       console.log(err);
       const errorCode = err.response?.status;
       const errorMessage =
-        err.response?.data?.error || "Login failed, please try again";
+        err.response?.data?.error || "Signup failed, please try again";
       toaster.create({
-        title: `Error fetching trips: ${error}`,
+        title: `Error: ${errorCode} ${errorMessage}`,
         type: "error",
       });
+    } finally {
+      setIsSubmitting(false);
     }
   };
 
@@ -88,7 +93,7 @@ const Login = () => {
             </Text>
           </Field.Root>
 
-          <Button type="submit" width="full">
+          <Button type="submit" width="full" loading={isSubmitting}>
             Login
           </Button>
         </Stack>

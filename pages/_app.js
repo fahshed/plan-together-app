@@ -6,6 +6,7 @@ import Layout from "@/components/layout";
 import { isLoggedIn } from "@/utils/auth";
 import { PagesTopLoader } from "nextjs-toploader/pages";
 import { Toaster } from "@/components/ui/toaster";
+import { ColorModeProvider } from "@/components/ui/color-mode";
 
 // import { ThemeProvider } from "next-themes";
 // import "@/styles/globals.css";
@@ -38,11 +39,13 @@ export default function App({ Component, pageProps }) {
   );
   return (
     <ChakraProvider value={system}>
-      {noLayoutRoutes.includes(router.pathname) ? (
-        Page
-      ) : (
-        <Layout>{Page}</Layout>
-      )}
+      <ColorModeProvider>
+        {noLayoutRoutes.includes(router.pathname) ? (
+          Page
+        ) : (
+          <Layout>{Page}</Layout>
+        )}
+      </ColorModeProvider>
     </ChakraProvider>
   );
 }

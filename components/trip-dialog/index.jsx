@@ -4,6 +4,7 @@ import { useForm } from "react-hook-form";
 import { useState } from "react";
 
 export default function CreateTripDialog({ onCreate }) {
+  const [isSubmitting, setIsSubmitting] = useState(false);
   const [isOpen, setIsOpen] = useState(false);
   const {
     register,
@@ -12,14 +13,23 @@ export default function CreateTripDialog({ onCreate }) {
     formState: { errors },
   } = useForm();
 
-  const onSubmit = (data) => {
-    const processedData = {
-      ...data,
-      tags: data.tags.split(",").map((tag) => tag.trim()),
-    };
-    onCreate(processedData);
-    setIsOpen(false);
-    reset();
+  const onSubmit = async (data) => {
+    setIsSubmitting(true);
+    try {
+      const processedData = {
+        ...data,
+        tags: data.tags.split(",").map((tag) => tag.trim()),
+      };
+
+      await onCreate(processedData);
+
+      setIsOpen(false);
+      reset();
+    } catch (error) {
+      console.error("Error creating trip:", error);
+    } finally {
+      setIsSubmitting(false);
+    }
   };
 
   return (
@@ -30,7 +40,7 @@ export default function CreateTripDialog({ onCreate }) {
       size="md"
     >
       <Dialog.Trigger asChild>
-        <Button size="2xl">
+        <Button>
           Create Trip <RiAddLine />
         </Button>
       </Dialog.Trigger>
@@ -88,7 +98,12 @@ export default function CreateTripDialog({ onCreate }) {
                   <Button variant="outline" onClick={() => setIsOpen(false)}>
                     Cancel
                   </Button>
-                  <Button type="submit" bg="blue.800" color="white">
+                  <Button
+                    type="submit"
+                    bg="blue.800"
+                    color="white"
+                    loading={isSubmitting}
+                  >
                     Create
                   </Button>
                 </Dialog.Footer>

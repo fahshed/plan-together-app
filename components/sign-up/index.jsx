@@ -12,6 +12,7 @@ import {
 import { useRouter } from "next/router";
 import { useForm } from "react-hook-form";
 import { toaster } from "@/components/ui/toaster";
+import { useState } from "react";
 
 const SignUp = () => {
   const router = useRouter();
@@ -20,8 +21,10 @@ const SignUp = () => {
     handleSubmit,
     formState: { errors },
   } = useForm();
+  const [isSubmitting, setIsSubmitting] = useState(false);
 
   const onSubmit = async (data) => {
+    setIsSubmitting(true);
     try {
       const res = await authApi.post("/signup", data);
       const { token, user } = res.data;
@@ -37,6 +40,8 @@ const SignUp = () => {
         title: `Error: ${errorCode} ${errorMessage}`,
         type: "error",
       });
+    } finally {
+      setIsSubmitting(false);
     }
   };
 
@@ -108,7 +113,12 @@ const SignUp = () => {
             </Text>
           </Field.Root>
 
-          <Button type="submit" colorScheme="blue" width="full">
+          <Button
+            type="submit"
+            colorScheme="blue"
+            width="full"
+            loading={isSubmitting}
+          >
             Sign Up
           </Button>
         </Stack>

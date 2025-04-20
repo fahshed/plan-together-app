@@ -46,7 +46,7 @@ export default function TripsPage() {
     } catch (error) {
       toaster.create({
         title: `Error creating trip: ${
-          error.response?.data?.message || error.message
+          error.response?.data?.error || error.message
         }`,
         type: "error",
       });
@@ -63,14 +63,14 @@ export default function TripsPage() {
   }
 
   return (
-    <Center pt="6" flexDirection="column">
-      <Heading mb="6" size="2xl" textAlign="center">
+    <Box>
+      <Heading mb="6" size="2xl">
         All Your Trips are Here!
       </Heading>
       <Box mb="6">
         <CreateTripDialog onCreate={handleCreate} />
       </Box>
-      <Stack gap="6" align="center">
+      <Stack gap="6">
         {trips.map((indtrip, index) => (
           <TripCard
             key={indtrip.id}
@@ -82,6 +82,6 @@ export default function TripsPage() {
           />
         ))}
       </Stack>
-    </Center>
+    </Box>
   );
 }

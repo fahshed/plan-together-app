@@ -1,10 +1,10 @@
 import axios from "axios";
 
-const authApi = axios.create({
-  baseURL: process.env.NEXT_PUBLIC_AUTH_SERVICE_URL + "/auth",
+const transactionApi = axios.create({
+  baseURL: process.env.NEXT_PUBLIC_TRANSACTION_SERVICE_URL + "/transactions",
 });
 
-authApi.interceptors.request.use((config) => {
+transactionApi.interceptors.request.use((config) => {
   if (typeof window !== "undefined") {
     const token = localStorage.getItem("token");
     if (token) {
@@ -14,4 +14,4 @@ authApi.interceptors.request.use((config) => {
   return config;
 });
 
-export default authApi;
+export default transactionApi;
