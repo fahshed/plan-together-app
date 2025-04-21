@@ -5,9 +5,13 @@ describe("Trip + Event Flow", () => {
 
   beforeEach(() => {
     cy.visit("/login");
-    cy.get('input[name="email"]').type("testUser@gmail.com", { force: true });
-    cy.get('input[name="password"]').type("Test1234");
-    cy.get('button[type="submit"]').should("be.visible").click();
+    cy.get('input[name="email"]')
+      .should("be.visible")
+      .type("testUser@gmail.com", { force: true });
+    cy.get('input[name="password"]')
+      .should("be.visible")
+      .type("Test1234", { force: true });
+    cy.get('button[type="submit"]').should("be.visible").click({ force: true });
     cy.url().should("include", "/");
     cy.contains("PlanTogether").should("be.visible");
   });
@@ -89,7 +93,7 @@ describe("Trip + Event Flow", () => {
     cy.contains(event1, { timeout: 10000 }).should("not.exist");
   });
 
-  it("deletes all trips with name-confirmation", () => {
+  it("deletes all trips", () => {
     cy.visit("/trips");
 
     cy.get('[data-cy="view-trip-btn"]', { timeout: 10000 }).each(() => {
