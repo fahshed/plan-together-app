@@ -10,10 +10,12 @@ steps:
 
   - name: "gcr.io/cloud-builders/kubectl"
     args:
-      - "set"
-      - "image"
-      - "deployment/next-frontend"
-      - "next-frontend=gcr.io/$PROJECT_ID/nextjs-frontend:$COMMIT_SHA"
+      [
+        "set",
+        "image",
+        "deployment/next-frontend",
+        "next-frontend=gcr.io/$PROJECT_ID/nextjs-frontend:$COMMIT_SHA",
+      ]
     env:
       - "CLOUDSDK_COMPUTE_ZONE=us-central1-a"
       - "CLOUDSDK_CONTAINER_CLUSTER=plan-together-cluster"
