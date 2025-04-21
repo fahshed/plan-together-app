@@ -13,9 +13,11 @@ export default function TripCard({ id, title, summary, image, tags = [] }) {
   return (
     <Card.Root flexDirection="row" overflow="hidden" w="2xl" variant="elevated">
       <Image objectFit="cover" width="200px" src={image} alt={title} />
-      <Box>
+      <Box data-cy="trip-card">
         <Card.Body>
-          <Card.Title mb="2">{title}</Card.Title>
+          <Card.Title mb="2" data-cy="trip-title">
+            {title}
+          </Card.Title>
           <Card.Description>{summary}</Card.Description>
           <HStack mt="4">
             {tags.map((tag, i) => (
@@ -25,7 +27,7 @@ export default function TripCard({ id, title, summary, image, tags = [] }) {
         </Card.Body>
         <Card.Footer>
           <ChakraLink as={NextLink} href={`/trips/${id}`} passHref>
-            <Button>View Trip</Button>
+            <Button data-cy="view-trip-btn">View Trip</Button>
           </ChakraLink>
         </Card.Footer>
       </Box>

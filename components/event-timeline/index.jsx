@@ -27,6 +27,7 @@ export default function EventTimeline({ events, tripId, tripTitle }) {
                   <Timeline.Title
                     _hover={{ textDecoration: "underline", cursor: "pointer" }}
                     fontSize="md"
+                    data-cy="event-name-link"
                   >
                     {event.name}
                   </Timeline.Title>
