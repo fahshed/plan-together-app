@@ -3,17 +3,16 @@ import {
   HStack,
   Text,
   CheckboxCard,
-  Flex,
   Avatar,
   Stack,
-  VStack,
+  Badge,
 } from "@chakra-ui/react";
 import { useState } from "react";
 
 const colorDict = {
-  high: "red.200",
-  medium: "yellow.200",
-  low: "blue.200",
+  high: "red",
+  medium: "yellow",
+  low: "blue",
 };
 
 export default function TaskCardGroup({
@@ -49,7 +48,7 @@ export default function TaskCardGroup({
             checked={task.status === "completed"}
             key={task.id}
             value={task.id}
-            bg={colorDict[task.priority]}
+            bg={`${colorDict[task.priority]}.200`}
             colorPalette="green"
             onChange={(e) => handleTaskStatusChange(e.target.value)}
             maxW="200px"
@@ -59,6 +58,13 @@ export default function TaskCardGroup({
             <CheckboxCard.Control>
               <CheckboxCard.Content>
                 <CheckboxCard.Label>{task.name}</CheckboxCard.Label>
+                <Badge
+                  size="xs"
+                  colorPalette={colorDict[task.priority]}
+                  variant="solid"
+                >
+                  {task.priority}
+                </Badge>
                 <CheckboxCard.Description>
                   {task.description}
                 </CheckboxCard.Description>

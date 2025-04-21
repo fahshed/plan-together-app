@@ -32,7 +32,7 @@ export default function EventTimeline({ events, tripId, tripTitle }) {
                   </Timeline.Title>
                 </Link>
                 <Timeline.Description>
-                  {new Date(event.date).toLocaleDateString()}
+                  {new Date(event.date + "T00:00:00").toLocaleDateString()}
                 </Timeline.Description>
                 <Text textStyle="sm">
                   {event.description || "No description provided"}

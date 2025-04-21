@@ -9,6 +9,7 @@ import {
   Blockquote,
   Tabs,
   Link,
+  Breadcrumb,
 } from "@chakra-ui/react";
 import { useRouter } from "next/router";
 import { useEffect, useState } from "react";
@@ -20,11 +21,16 @@ import CreateTransactionDialog from "@/components/transaction-dialog";
 import CreateTaskDialog from "@/components/task-dialog";
 import TaskCardGroup from "@/components/task-card-group";
 import { LuReceipt, LuSquareCheck } from "react-icons/lu";
+import DeleteDialog from "@/components/delete-dialog";
+import { getUserFromLocalStorage } from "@/utils/auth";
 
 export default function EventDetailsPage() {
+  const currentUser = getUserFromLocalStorage();
+
   const router = useRouter();
   const { tripId, eventId, tripTitle } = router.query;
 
+  const [trip, setTrip] = useState({});
   const [eventDetails, setEventDetails] = useState(null);
   const [transactions, setTransactions] = useState([]);
   const [groupedTasks, setGroupedTasks] = useState({});
@@ -36,6 +42,9 @@ export default function EventDetailsPage() {
     const fetchEventAndTransactions = async () => {
       setLoading(true);
       try {
+        const tripResponse = await tripApi.get(`/${tripId}`);
+        setTrip(tripResponse.data);
+
         const eventResponse = await tripApi.get(`/${tripId}/events/${eventId}`);
         setEventDetails(eventResponse.data);
 
@@ -106,9 +115,13 @@ export default function EventDetailsPage() {
   return (
     <Box>
       <Box mb={6}>
-        <Heading size="4xl" mb={2}>
-          {tripTitle} &gt; {eventDetails.name}
-        </Heading>
+        <Breadcrumb.Root size="lg" mb={2}>
+          <Breadcrumb.List color="blue.800" fontWeight="bold">
+            <Breadcrumb.Item>{tripTitle}</Breadcrumb.Item>
+            <Breadcrumb.Separator />
+            <Breadcrumb.Item>{eventDetails.name}</Breadcrumb.Item>
+          </Breadcrumb.List>
+        </Breadcrumb.Root>
 
         <Text mb={2}>{new Date(eventDetails.date).toLocaleDateString()}</Text>
 
@@ -118,7 +131,7 @@ export default function EventDetailsPage() {
           </Blockquote.Content>
         </Blockquote.Root>
 
-        <HStack gap="2" mb={2}>
+        <HStack gap="2" mb={4}>
           <Text>Created by</Text>
           <Avatar.Root size="xs">
             <Avatar.Fallback
@@ -132,22 +145,28 @@ export default function EventDetailsPage() {
             {`${eventDetails.createdBy.firstName} ${eventDetails.createdBy.lastName}`}
           </Text>
         </HStack>
+
+        {currentUser &&
+          (currentUser.id === eventDetails.createdBy.userId ||
+            currentUser.id === trip?.owner.userId) && (
+            <DeleteDialog
+              deleteURL={`/${tripId}/events/${eventId}`}
+              deleteText={eventDetails.name}
+              deleteEntity="Event"
+              redirectURL={`/trips/${tripId}`}
+            />
+          )}
       </Box>
 
       <Tabs.Root defaultValue="transactions" mb={6}>
         <Tabs.List>
           <Tabs.Trigger value="transactions">
-            <LuReceipt />
-            <Link unstyled href="#transactions">
-              Transactions
-            </Link>
+            <LuReceipt /> Transactions
           </Tabs.Trigger>
 
           <Tabs.Trigger value="tasks">
             <LuSquareCheck />
-            <Link unstyled href="#tasks">
-              Tasks
-            </Link>
+            Tasks
           </Tabs.Trigger>
         </Tabs.List>
         <Tabs.Content value="transactions">

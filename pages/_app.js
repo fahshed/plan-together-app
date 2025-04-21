@@ -8,9 +8,6 @@ import { PagesTopLoader } from "nextjs-toploader/pages";
 import { Toaster } from "@/components/ui/toaster";
 import { ColorModeProvider } from "@/components/ui/color-mode";
 
-// import { ThemeProvider } from "next-themes";
-// import "@/styles/globals.css";
-
 const noLayoutRoutes = ["/login", "/signup"];
 
 export default function App({ Component, pageProps }) {

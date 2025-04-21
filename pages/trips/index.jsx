@@ -63,7 +63,11 @@ export default function TripsPage() {
   }
 
   return (
-    <Box>
+    <Box
+      backgroundImage="url('https://doodleipsum.com/3200x1800/outline')"
+      backgroundSize="cover"
+      minHeight="100vh"
+    >
       <Heading mb="6" size="2xl">
         All Your Trips are Here!
       </Heading>

@@ -21,6 +21,8 @@ import EventDialog from "@/components/event-dialog";
 import { getUserFromLocalStorage } from "@/utils/auth";
 import { toaster } from "@/components/ui/toaster";
 import EventTimeline from "@/components/event-timeline";
+import DeleteDialog from "@/components/delete-dialog";
+import EventDiagram from "@/components/event-diagram";
 
 export default function TripDetailsPage() {
   const router = useRouter();
@@ -102,7 +104,7 @@ export default function TripDetailsPage() {
 
   return (
     <Box>
-      <Grid templateColumns={["1fr", null, "2fr 1fr"]} gap={6}>
+      <Grid templateColumns={["1fr", null, "2fr 1fr"]} gap={10}>
         <GridItem>
           <VStack align="start" gap={6}>
             <Box>
@@ -123,14 +125,18 @@ export default function TripDetailsPage() {
               </Blockquote.Root>
             </Box>
 
-            <Box>
+            <Box width="full">
               <Heading size="lg" mb={2}>
                 Events
               </Heading>
+
               <EventDialog
                 tripId={tripId}
                 onEventCreated={handleEventCreated}
               />
+
+              {events.length > 0 && <EventDiagram events={events} />}
+
               <Box mt={4}>
                 <EventTimeline
                   events={events}
@@ -196,6 +202,15 @@ export default function TripDetailsPage() {
 
             {currentUser && currentUser.id === trip.owner.userId && (
               <AddMemberDialog handleAddMember={handleAddMember} />
+            )}
+
+            {currentUser && currentUser.id === trip.owner.userId && (
+              <DeleteDialog
+                deleteURL={`/${tripId}`}
+                deleteText={trip.title}
+                deleteEntity="Trip"
+                redirectURL="/trips"
+              />
             )}
           </VStack>
         </GridItem>

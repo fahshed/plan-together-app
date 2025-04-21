@@ -1,7 +1,6 @@
 import {
   Avatar,
   Button,
-  CloseButton,
   Dialog,
   Field,
   HStack,

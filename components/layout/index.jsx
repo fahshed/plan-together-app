@@ -10,17 +10,27 @@ import {
   Menu,
   Portal,
   Spinner,
+  useBreakpointValue,
+  IconButton,
+  Collapsible,
+  VStack,
+  Stack,
+  Separator,
 } from "@chakra-ui/react";
 import Head from "next/head";
 import NextLink from "next/link";
 import { useRouter } from "next/router";
 import { getUserFromLocalStorage } from "@/utils/auth";
-import { ColorModeButton } from "@/components/ui/color-mode";
+import { RiCloseLargeLine, RiCloseLine } from "react-icons/ri";
+import { FaHamburger } from "react-icons/fa";
+import { GiHamburgerMenu } from "react-icons/gi";
 
 export default function Layout({ children }) {
   const router = useRouter();
   const [user, setUser] = useState();
+  const [isMenuOpen, setIsMenuOpen] = useState(false);
   const [loading, setLoading] = useState(true);
+  const isMobile = useBreakpointValue({ base: true, md: false });
 
   useEffect(() => {
     const userData = getUserFromLocalStorage();
@@ -57,9 +67,6 @@ export default function Layout({ children }) {
         <title>PlanTogether</title>
         <meta name="viewport" content="width=device-width, initial-scale=1" />
       </Head>
-      {/* "#fdf0d5" */}
-      {/* {"#FFF9E5"} */}
-      {/* FFF9EC */}
       <Box minH="100vh">
         <Flex
           as="nav"
@@ -76,47 +83,83 @@ export default function Layout({ children }) {
 
           <Spacer />
 
-          <HStack gap="8">
-            {/* <ColorModeButton /> */}
-            <Link as={NextLink} href="/" color="white">
-              Home
-            </Link>
-            <Link as={NextLink} href="/trips" color="white">
-              Trips
-            </Link>
-            <Link as={NextLink} href="/transactions" color="white">
-              Transaction
-            </Link>
-            <Menu.Root>
-              <Menu.Trigger asChild>
-                <div>
-                  <Avatar.Root bg="white">
-                    <Avatar.Image
-                      src={`https://avatar.iran.liara.run/public?username=${user.id}`}
-                    />
-                  </Avatar.Root>
-                </div>
-              </Menu.Trigger>
-              <Portal>
-                <Menu.Positioner>
-                  <Menu.Content bg="red.500">
-                    <Menu.Item color="white">{`${user?.firstName} ${user?.lastName}`}</Menu.Item>
-                    <Menu.Separator />
-                    <Menu.Item
-                      value="logout"
-                      onClick={handleLogout}
-                      color="white"
-                    >
-                      Logout
-                    </Menu.Item>
-                  </Menu.Content>
-                </Menu.Positioner>
-              </Portal>
-            </Menu.Root>
-          </HStack>
+          {isMobile ? (
+            <IconButton
+              onClick={() => setIsMenuOpen(!isMenuOpen)}
+              variant="ghost"
+              color="white"
+            >
+              {isMenuOpen ? <RiCloseLargeLine /> : <GiHamburgerMenu />}
+            </IconButton>
+          ) : (
+            <HStack gap="8">
+              <Link as={NextLink} href="/" color="white">
+                Home
+              </Link>
+              <Link as={NextLink} href="/trips" color="white">
+                Trips
+              </Link>
+              <Link as={NextLink} href="/transactions" color="white">
+                Expenses
+              </Link>
+              <Menu.Root>
+                <Menu.Trigger asChild>
+                  <div>
+                    <Avatar.Root bg="white">
+                      <Avatar.Image
+                        src={`https://avatar.iran.liara.run/public?username=${user.id}`}
+                      />
+                    </Avatar.Root>
+                  </div>
+                </Menu.Trigger>
+                <Portal>
+                  <Menu.Positioner>
+                    <Menu.Content bg="red.500">
+                      <Menu.Item color="white">{`${user?.firstName} ${user?.lastName}`}</Menu.Item>
+                      <Menu.Separator />
+                      <Menu.Item
+                        value="logout"
+                        onClick={handleLogout}
+                        color="white"
+                      >
+                        Logout
+                      </Menu.Item>
+                    </Menu.Content>
+                  </Menu.Positioner>
+                </Portal>
+              </Menu.Root>
+            </HStack>
+          )}
         </Flex>
 
-        <Box p="12">{children}</Box>
+        <Collapsible.Root open={isMenuOpen} bg="blue.800" color="white">
+          <Collapsible.Content>
+            <VStack gap="3" p="6" align="start">
+              <HStack gap="2">
+                <Avatar.Root bg="white" size="2xs">
+                  <Avatar.Image
+                    src={`https://avatar.iran.liara.run/public?username=${user.id}`}
+                  />
+                </Avatar.Root>
+                <Box color="white">{`${user?.firstName} ${user?.lastName}`}</Box>
+              </HStack>
+              <Link as={NextLink} href="/" color="white">
+                Home
+              </Link>
+              <Link as={NextLink} href="/trips" color="white">
+                Trips
+              </Link>
+              <Link as={NextLink} href="/transactions" color="white">
+                Expenses
+              </Link>
+              <Box value="logout" onClick={handleLogout} color="white">
+                Logout
+              </Box>
+            </VStack>
+          </Collapsible.Content>
+        </Collapsible.Root>
+
+        <Box p={isMobile ? "6" : "12"}>{children}</Box>
       </Box>
     </>
   );
