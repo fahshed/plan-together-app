@@ -1,40 +1,36 @@
-This is a [Next.js](https://nextjs.org) project bootstrapped with [`create-next-app`](https://nextjs.org/docs/pages/api-reference/create-next-app).
+# PlanTogether
 
-## Getting Started
+Deployed URL: http://34.49.45.45/
 
-First, run the development server:
+<p align="center">
+  <img src="https://github.com/user-attachments/assets/caef3fb2-ea0c-4bcc-a91c-09835647b13f" width="500" border="1px solid #ccc"/>
+  <img src="https://github.com/user-attachments/assets/52892ef4-12fa-4d8e-9e32-08f8c46bf419" width="500"/>
+  <img src="https://github.com/user-attachments/assets/7330fe74-183c-4466-86d2-244b735acad2" width="500"/>
+  <img src="https://github.com/user-attachments/assets/1804a414-1355-49b2-886b-4eda6249f2b6" width="500"/>
+  <img src="https://github.com/user-attachments/assets/eab16382-6d53-46c9-8300-5440e38f68c3" width="500"/>
+  <img src="https://github.com/user-attachments/assets/6974317f-3529-438a-be77-79ba4ccd7f0e" width="500"/>
+</p>
 
-```bash
-npm run dev
-# or
-yarn dev
-# or
-pnpm dev
-# or
-bun dev
-```
+### Repositories
 
-Open [http://localhost:3000](http://localhost:3000) with your browser to see the result.
+- Frontend Application: https://github.com/fahshed/plan-together-app
+- Auth Service: https://github.com/fahshed/plan-together-auth-service
+- Trip Service: https://github.com/fahshed/plan-together-trip-service
+- Transaction Servie: https://github.com/fahshed/plan-together-transaction-service
 
-You can start editing the page by modifying `pages/index.js`. The page auto-updates as you edit the file.
+### TechStack
 
-[API routes](https://nextjs.org/docs/pages/building-your-application/routing/api-routes) can be accessed on [http://localhost:3000/api/hello](http://localhost:3000/api/hello). This endpoint can be edited in `pages/api/hello.js`.
+- Frontend: Next.js 15 (Page Router) + ChakraUI V3, Cypress
+- Backend: Node.js, Express, JWT, Jest
+- Datastore: Firebase, Cloud Storage Bucket
+- Cloud: Docker, GCP (GKE, Cloud Build, Ingress)
 
-The `pages/api` directory is mapped to `/api/*`. Files in this directory are treated as [API routes](https://nextjs.org/docs/pages/building-your-application/routing/api-routes) instead of React pages.
+### Testing
 
-This project uses [`next/font`](https://nextjs.org/docs/pages/building-your-application/optimizing/fonts) to automatically optimize and load [Geist](https://vercel.com/font), a new font family for Vercel.
-
-## Learn More
-
-To learn more about Next.js, take a look at the following resources:
-
-- [Next.js Documentation](https://nextjs.org/docs) - learn about Next.js features and API.
-- [Learn Next.js](https://nextjs.org/learn-pages-router) - an interactive Next.js tutorial.
-
-You can check out [the Next.js GitHub repository](https://github.com/vercel/next.js) - your feedback and contributions are welcome!
-
-## Deploy on Vercel
-
-The easiest way to deploy your Next.js app is to use the [Vercel Platform](https://vercel.com/new?utm_medium=default-template&filter=next.js&utm_source=create-next-app&utm_campaign=create-next-app-readme) from the creators of Next.js.
-
-Check out our [Next.js deployment documentation](https://nextjs.org/docs/pages/building-your-application/deploying) for more details.
+- Unit Test: `computeLedger()` method in transaction-service has a test suite with 4 unit tests with `Jest`. To run do `npm install`, and then `npm test`.
+- E2E Test: Trip and event flow is tested with `cypress` in the front end. To run:
+  - do `npm install`
+  - have `.env` file setup
+  - start the app with `npm run dev`
+  - then do `npx cypress open`.
+  - click on the `trip_flow.cy.js` file on cypress browser window.
