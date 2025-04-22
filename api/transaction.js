@@ -1,7 +1,7 @@
 import axios from "axios";
 
 const transactionApi = axios.create({
-  baseURL: process.env.NEXT_PUBLIC_TRANSACTION_SERVICE_URL + "/transactions",
+  baseURL: "http://34.49.45.45" + "/transactions",
 });
 
 transactionApi.interceptors.request.use((config) => {
