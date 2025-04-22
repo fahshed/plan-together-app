@@ -3,12 +3,12 @@
 Deployed URL: http://34.49.45.45/
 
 <p align="center">
-  <img src="https://github.com/user-attachments/assets/caef3fb2-ea0c-4bcc-a91c-09835647b13f" width="500" border="1px solid #ccc"/>
-  <img src="https://github.com/user-attachments/assets/52892ef4-12fa-4d8e-9e32-08f8c46bf419" width="500"/>
-  <img src="https://github.com/user-attachments/assets/7330fe74-183c-4466-86d2-244b735acad2" width="500"/>
-  <img src="https://github.com/user-attachments/assets/1804a414-1355-49b2-886b-4eda6249f2b6" width="500"/>
-  <img src="https://github.com/user-attachments/assets/eab16382-6d53-46c9-8300-5440e38f68c3" width="500"/>
-  <img src="https://github.com/user-attachments/assets/6974317f-3529-438a-be77-79ba4ccd7f0e" width="500"/>
+  <img src="https://github.com/user-attachments/assets/caef3fb2-ea0c-4bcc-a91c-09835647b13f" width="350" border="1px solid #ccc"/>
+  <img src="https://github.com/user-attachments/assets/52892ef4-12fa-4d8e-9e32-08f8c46bf419" width="350"/>
+  <img src="https://github.com/user-attachments/assets/7330fe74-183c-4466-86d2-244b735acad2" width="350"/>
+  <img src="https://github.com/user-attachments/assets/1804a414-1355-49b2-886b-4eda6249f2b6" width="350"/>
+  <img src="https://github.com/user-attachments/assets/eab16382-6d53-46c9-8300-5440e38f68c3" width="350"/>
+  <img src="https://github.com/user-attachments/assets/6974317f-3529-438a-be77-79ba4ccd7f0e" width="350"/>
 </p>
 
 ### Repositories
