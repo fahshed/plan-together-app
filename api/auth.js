@@ -1,7 +1,7 @@
 import axios from "axios";
 
 const authApi = axios.create({
-  baseURL: "http://34.49.45.45" + "/auth",
+  baseURL: "http://34.49.45.45" + "/api/auth",
 });
 
 authApi.interceptors.request.use((config) => {

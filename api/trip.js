@@ -1,7 +1,7 @@
 import axios from "axios";
 
 const tripApi = axios.create({
-  baseURL: "http://34.49.45.45" + "/trips",
+  baseURL: "http://34.49.45.45" + "/api/trips",
 });
 
 tripApi.interceptors.request.use((config) => {
