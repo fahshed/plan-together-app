@@ -1,7 +1,7 @@
 import axios from "axios";
 
 const tripApi = axios.create({
-  baseURL: process.env.NEXT_PUBLIC_TRIP_SERVICE_URL + "/trips",
+  baseURL: process.env.NEXT_PUBLIC_TRIP_SERVICE_URL + "/api/trips",
 });
 
 tripApi.interceptors.request.use((config) => {
