@@ -1,6 +1,6 @@
 # PlanTogether
 
-Deployed URL: http://34.49.45.45/
+Deployed URL: http://34.49.45.45/ (creds: lina799@gmail.com/Sign1234)
 
 <p align="center">
   <img src="https://github.com/user-attachments/assets/caef3fb2-ea0c-4bcc-a91c-09835647b13f" width="350" border="1px solid #ccc"/>
